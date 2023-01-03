@@ -1,0 +1,25 @@
+<p>
+  <strong>Title:</strong>
+  <%= @recipe.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @recipe.description %>
+</p>
+
+<% if @recipe.image.attached? %>
+  <%= image_tag @recipe.image, class: "recipe-image" %>
+<% end %>
+
+<h3>Ingredients:</h3>
+<% @recipe.ingredients.each do |ingredient| %>
+  <%= check_box_tag "ingredients[]", ingredient.id, false, id: "ingredient-#{ingredient.id}" %>
+  <label for="ingredient-<%= ingredient.id %>"><%= ingredient.name %> (<%= ingredient.measurement_unit %>)</label>
+<% end %>
+
+<%= link_to "Back to Recipes", recipes_path %>
+
+<% if current_user && current_user == @recipe.user %>
+  <%= link_to "Edit", edit_recipe_path(@recipe) %>
+<% end %>

@@ -1,0 +1,20 @@
+<%= form_with model: @recipe, local: true, html: { multipart: true } do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <br>
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+  <br>
+  <%= f.label :image %>
+  <%= f.file_field :image %>
+  <br>
+  <h2>Ingredients</h2>
+  <fieldset>
+    <%= f.fields_for :ingredients do |ingredients_form| %>
+      <%= render "ingredient_fields", f: ingredients_form %>
+    <% end %>
+    <%= link_to_add_fields "Add ingredients", f, :ingredients %>
+  </fieldset>
+  <br>
+  <%= f.submit "Create recipe" %>
+<% end %>
